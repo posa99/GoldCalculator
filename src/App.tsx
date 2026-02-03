@@ -173,7 +173,7 @@ function App() {
   }
 
   return (
-    <div className="h-screen p-2 sm:p-4 lg:p-6 overflow-hidden relative">
+    <div className="h-[100dvh] p-3 sm:p-4 lg:p-6 overflow-hidden relative flex flex-col">
       {/* Gold Wave Animation */}
       <div className="wave-container">
         <div className="wave"></div>
@@ -181,26 +181,26 @@ function App() {
         <div className="wave"></div>
       </div>
 
-      <div className="h-full max-w-none mx-auto flex flex-col relative z-10">
-        <header className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 mb-6 border border-white/20">
+      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col relative z-10 min-h-0">
+        <header className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6 border border-white/20 flex-shrink-0">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <span className="text-white text-lg sm:text-xl font-bold">Au</span>
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                <span className="text-white text-base sm:text-xl font-bold">Au</span>
               </div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Gold Price Calculator</h1>
-                <p className="text-xs sm:text-sm text-gray-600">Philippines Live Gold Rates</p>
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-800 leading-tight">Gold Price Calculator</h1>
+                <p className="text-[10px] sm:text-sm text-gray-600">Philippines Live Gold Rates</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-xs sm:text-sm text-gray-600">Welcome, {currentUser?.name || 'Guest'}</p>
+              <p className="text-[10px] sm:text-sm text-gray-600 mb-0.5 sm:mb-1">Welcome, {currentUser?.name || 'Guest'}</p>
               <button
                 onClick={() => {
                   setIsLoggedIn(false)
                   setCurrentUser(null)
                 }}
-                className="text-xs sm:text-sm text-red-600 hover:text-red-700"
+                className="text-xs sm:text-sm text-red-600 hover:text-red-700 font-medium bg-red-50 px-2 py-1 rounded hover:bg-red-100 transition-colors"
               >
                 Logout
               </button>
@@ -208,67 +208,67 @@ function App() {
           </div>
         </header>
 
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-y-auto no-scrollbar">
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 border border-white/20">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 overflow-y-auto no-scrollbar pb-20 sm:pb-0">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 border border-white/20">
             <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6">Gold Calculator</h2>
             
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">Gold Purity</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Gold Purity</label>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {Object.entries(purityRates).map(([karat, purity]) => (
                     <button
                       key={karat}
                       onClick={() => setSelectedPurity(karat)}
-                      className={`py-3 px-2 sm:px-3 rounded-lg border-2 text-xs sm:text-sm font-medium transition-all duration-200 ${
+                      className={`py-2 sm:py-3 px-1 sm:px-3 rounded-lg border-2 text-xs sm:text-sm font-medium transition-all duration-200 ${
                         selectedPurity === karat
-                          ? 'bg-amber-500 text-white border-amber-500 shadow-lg'
+                          ? 'bg-amber-500 text-white border-amber-500 shadow-lg scale-105'
                           : 'bg-white text-gray-700 border-gray-300 hover:border-amber-400 hover:bg-amber-50'
                       }`}
                     >
                       <div className="font-bold">{karat.toUpperCase()}</div>
-                      <div className="text-xs opacity-75">{(purity * 100).toFixed(1)}%</div>
+                      <div className="text-[10px] sm:text-xs opacity-90 sm:opacity-75">{(purity * 100).toFixed(1)}%</div>
                     </button>
                   ))}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                  Gold Rate (₱/gram) - Current Philippines Rate
+                <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                  Gold Rate (₱/gram)
                 </label>
                 <input
                   type="number"
                   value={goldRate}
                   onChange={(e) => setGoldRate(Number(e.target.value))}
-                  className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2.5 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
                 />
-                <p className="text-xs text-gray-500 mt-1">Live rate: {formatCurrency(goldRate)}/gram for 24k</p>
+                <p className="text-xs text-gray-500 mt-1.5">Live rate: {formatCurrency(goldRate)}/gram for 24k</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">Weight (grams)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Weight (grams)</label>
                 <input
                   type="number"
                   value={grams}
                   onChange={(e) => setGrams(Number(e.target.value))}
-                  className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2.5 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">Making Charge (₱)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Making Charge (₱)</label>
                 <input
                   type="number"
                   value={makingCharge}
                   onChange={(e) => setMakingCharge(Number(e.target.value))}
-                  className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2.5 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
                 />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border border-white/20">
+          <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 border border-white/20">
             <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Price Breakdown</h2>
             
             <div className="space-y-3 sm:space-y-4">
